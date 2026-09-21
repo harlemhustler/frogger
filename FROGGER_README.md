@@ -31,13 +31,31 @@ Result folders:
 
 python frogger.py --source "C:/images/variant-source" --destination "C:/images/organized" --move-suffix "" --no-bg-suffix "nobg" --variant-label-field "title"
 
+## Demo and interface direction
+
+Git demo link: https://github.com/harlemhustler/frogger
+
+Frogger is being positioned as the image pipeline layer inside Gorgon, a multi-bot monitoring and control dashboard for autonomous AI agents. The current Frogger UI is intentionally lightweight, and the full Gorgon-style integration is still in development. The goal is to keep the workflow polished now while the visual controller layer is being refined for the next screenshot/demo pass.
+
+## 3rd input upgrade
+
+The original third input will become a preset action panel instead of a freeform text field. The default quick actions will be:
+
+- Remove Background
+- Duplicate
+- Thumbnail
+- Compress
+- Custom Job
+
+This makes the tool feel more like a bot action launcher than a raw file-processor.
+
 ## Why it matters
 
 This solves a real production bottleneck: sorting dozens of color variations into folders and preparing clean transparent-background assets for mockups, Shopify uploads, and product configuration workflows.
 
 ## Resume blurb
 
-Built Frogger, a Python image automation tool for organizing product-variant files by color or numeric label, moving originals into structured folders, and generating no-background asset variants for e-commerce and mockup workflows.
+Built Frogger, a Python image automation tool for organizing product-variant files by color or numeric label, moving originals into structured folders, and generating no-background asset variants for e-commerce and mockup workflows. The project is also aligned with Gorgon, a multi-bot controller app in development, where Frogger will eventually sit as a task/action module inside a more polished AI-operations UI.
 
 ## Notes
 
