@@ -162,7 +162,7 @@ See "MANDATORY FIRST ACTION" above -- `runSubagent` primary, `fetch_webpage` fal
    foreach ($proj in $book2Projects) { Copy-Item -Path "$book1\EcoBot PROJECT\AI_LAWS.md" -Destination "$book2\$proj\AI_LAWS.md" -Force }
    ```
 
-**All Confirmed Projects -- Book 1 (16 total, folder: `A Hustler''s Guide To Prompt Engineering`):**
+**All Confirmed Projects -- Book 1 (18 total, folder: `A Hustler''s Guide To Prompt Engineering`):**
 1. Airbot PROJECT
 2. Arbitrage-Bot PROJECT
 3. Bookworm
@@ -179,6 +179,8 @@ See "MANDATORY FIRST ACTION" above -- `runSubagent` primary, `fetch_webpage` fal
 14. Podcast PROJECT
 15. Sirius V PROJECT
 16. tikbot PROJECT
+17. Frogger PROJECT
+18. Gift Scraper PROJECT
 
 **All Confirmed Projects -- Book 2 (18 total, folder: `A Hustler''s Guide To Prompt Engineering 2`):**
 1. Blue Rooster PROJECT
@@ -201,10 +203,6 @@ See "MANDATORY FIRST ACTION" above -- `runSubagent` primary, `fetch_webpage` fal
 18. Vapor PROJECT
 
 **"Confirmed" definition:** the project folder has a working local `.git` repository with a `harlemhustler` GitHub remote configured. **Not confirmed:** `MISC`, `NEXT STEPS`, `Unconfirmed Projects` (Book 1) -- these have no git repo and are never synced or pushed.
-
-**Additional confirmed Book 1 projects added after the original roster:**
-- Frogger PROJECT
-- Gift Scraper PROJECT
 
 **Total confirmed projects across both books: 36.**
 
@@ -348,11 +346,11 @@ AI Agents integrate with the Gorgon dashboard: AI assistant interface, voice/tex
 
 - 99%+ uptime across all bots; < 15 minute mean time to recovery; zero data loss incidents
 - < 5 minute diagnostic response time; > 80% issues auto-resolved
-- All shared files synchronized across all 34 confirmed projects (both books)
+- All shared files synchronized across all 36 confirmed projects (both books)
 - Zero AI Law violations per session (goal)
 
 ---
 
 ## End of Unified AI Laws
 
-**Remember:** This single file governs every confirmed project across BOTH "A Hustler''s Guide To Prompt Engineering" and "A Hustler''s Guide To Prompt Engineering 2." Sync it, `Keys.md`, `Fixes.md`, and `Violations.md` across all 34 confirmed projects whenever any of them change.
+**Remember:** This single file governs every confirmed project across BOTH "A Hustler''s Guide To Prompt Engineering" and "A Hustler''s Guide To Prompt Engineering 2." Sync it, `Keys.md`, `Fixes.md`, and `Violations.md` across all 36 confirmed projects whenever any of them change.
