@@ -111,7 +111,9 @@ Here’s the link: https://cdn.shopify.com/s/files/1/0713/4792/9264/files/Tabico
 - Verified Law 6 lists the 18 Book 1 and 18 Book 2 projects; all 36 project copies of `AI_LAWS.md` match the canonical roster.
 - Audited all 36 repositories: each has the configured `harlemhustler` origin, is on `main`, and tracks `origin/main`; only this Killer Bear session log was locally modified before shutdown work.
 - Created `NEXT STEPS/NEXT_STEPS_KILLER_BEAR_2026-09-28.md` for Shopify upload acceptance and desktop/iPad/iPhone favicon verification.
-- Session-log synchronization and pushes are in progress.
+- Synchronized the session log to all 36 confirmed project folders without overwriting any pre-existing same-day log.
+- Push results: 35 repositories reported successful pushes. DigiPro's first push reported a remote ref race; a subsequent fetch showed local and remote `main` both at `8985e25` with the shutdown-log commit. Per the user's instruction, DigiPro was ignored thereafter.
+- Updated this log with the final follow-up instruction. DigiPro is excluded from the final log update and any further push, per the user's instruction; the remaining 35 confirmed repositories receive the final log and push pass.
 
 ## SHUTDOWN REQUEST (2026-09-28)
 > Good job. Will verify it propagates on iphone later. ```
@@ -124,3 +126,8 @@ Here’s the link: https://cdn.shopify.com/s/files/1/0713/4792/9264/files/Tabico
 > for the current day and project, replace it. The NEXT STEPS file should
 > have the date it was created and the project name in the title.
 > ```
+
+## FOLLOW-UP USER REQUEST (2026-09-28)
+> ignoree digi
+
+- User instructed to ignore DigiPro. No additional action was taken there; its local and remote `main` were aligned during the fetch check.
