@@ -104,4 +104,5 @@
 - Final checks: JavaScript syntax and `git diff --check` passed; Shopify Theme Check inspected 16 files with 0 errors and 15 HardcodedRoutes warnings.
 - Law 6 already lists all 18 confirmed Book 1 and 18 confirmed Book 2 projects; checked copies were synchronized, so no AI Laws changes were needed.
 - Created the dated EcoBot NEXT STEPS handoff for 2026-10-20.
-- Shutdown publication status will be recorded after reviewing and pushing only safe, project-appropriate changes; credentials are excluded.
+- Synchronized the dated EcoBot session log across all 36 confirmed projects. Pushed the reviewed EcoBot theme/log changes and synchronized shutdown logs to all 36 project repositories.
+- Excluded Killer Bear `Keys.md` and `.printify_token.txt` from publication; those local credential-related changes remain unpushed. Also left the unrelated untracked `homehover-alpha-test.html` out of the EcoBot commit.
