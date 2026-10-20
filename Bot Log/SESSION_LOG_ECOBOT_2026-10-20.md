@@ -100,7 +100,7 @@
 ## Shutdown — 2026-10-20
 
 - Recorded today's promo-video updates: centered media uses `object-fit: contain`; video previews activate as visible pairs on desktop/tablet and as one card on mobile; sound controls allow only one unmuted preview; the bottom-right volume toggle is 30% smaller; and the bottom-left fullscreen toggle supports standard fullscreen plus iOS WebKit video fullscreen.
-- Updated the confirmed streaming setup and family costume product handles and rebuilt the Shopify theme ZIP. Latest archive: 36,772,428 bytes (35.05 MiB).
+- Updated the confirmed streaming setup and family costume product handles and rebuilt the Shopify theme ZIP. Latest archive: 36,772,428 bytes (35.07 MiB).
 - Final checks: JavaScript syntax and `git diff --check` passed; Shopify Theme Check inspected 16 files with 0 errors and 15 HardcodedRoutes warnings.
 - Law 6 already lists all 18 confirmed Book 1 and 18 confirmed Book 2 projects; checked copies were synchronized, so no AI Laws changes were needed.
 - Created the dated EcoBot NEXT STEPS handoff for 2026-10-20.
