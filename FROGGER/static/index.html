@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FROGGER</title>
+  <link rel="stylesheet" href="/static/style.css?v=2">
+  <script src="/static/app.js?v=5" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <small>PROJECT 07 · HHL</small>
+      <h1>FROGGER</h1>
+      <p>Image Automation Engine · GORGON Compatible</p>
+    </header>
+    <form class="panel" id="job-form">
+      <div class="folder-choice">
+        <button type="button" id="folder-browse">Choose Source Folder</button>
+        <output id="folder-path" aria-live="polite">No folder selected</output>
+      </div>
+      <div class="folder-choice">
+        <button type="button" id="destination-browse">Choose Destination Folder</button>
+        <output id="destination-path" aria-live="polite">No folder selected</output>
+      </div>
+      <p class="hint">Choose a destination with existing color folders. Sort moves originals. Background remove saves PNGs under No BG.</p>
+      <fieldset class="operations">
+        <legend>Operations</legend>
+        <label><input type="checkbox" name="operations" value="sort" checked> Sort</label>
+        <label><input type="checkbox" name="operations" value="background_removal" checked> Background remove</label>
+        <label><input type="checkbox" disabled> Add Tags then publish</label>
+        <label><input type="checkbox" disabled> Remove Tags then publish</label>
+        <label><input type="checkbox" disabled> Duplicate</label>
+        <label><input type="checkbox" disabled> Thumbnail</label>
+        <label><input type="checkbox" disabled> Compress</label>
+        <label><input type="checkbox" disabled> Custom Job</label>
+      </fieldset>
+      <button id="run">Run FROGGER</button>
+    </form>
+    <section class="panel">
+      <h2>Job monitor</h2>
+      <p id="status" role="status">Ready</p>
+      <progress id="progress" aria-label="Job progress" value="0" max="100"></progress>
+      <pre id="report"></pre>
+    </section>
+  </main>
+</body>
+</html>
