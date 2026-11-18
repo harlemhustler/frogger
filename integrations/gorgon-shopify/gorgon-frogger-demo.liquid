@@ -1,0 +1,52 @@
+<div class="gorgon-frogger">
+  <div class="frogger-mobile-tools" role="group" aria-label="Frogger tools">
+    <button type="button" data-gorgon-open-tool="calendar" aria-label="Calendar" title="Calendar">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+    </button>
+    <button type="button" data-gorgon-open-tool="logs">Logs</button>
+  </div>
+  <div class="frogger-steps" role="group" aria-label="Operation steps">
+    {% for step in (1..4) %}
+      <button type="button" data-frogger-step="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" {% unless forloop.first %}disabled{% endunless %}>{{ step }}. Operation</button>
+    {% endfor %}
+  </div>
+  <div class="frogger-settings">
+    <div class="frogger-operation">
+      <select data-frogger-operation aria-label="Operation">
+        <option value="">Choose operation</option>
+        <option value="sort">Sort</option>
+        <option value="background_removal">Background remove</option>
+        <optgroup label="Future operations">
+          <option disabled>Add Tags then publish</option>
+          <option disabled>Remove Tags then publish</option>
+          <option disabled>Duplicate</option>
+          <option disabled>Thumbnail</option>
+          <option disabled>Compress</option>
+          <option disabled>Custom Job</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="frogger-folder">
+      <button type="button" data-frogger-folder="source">Choose source</button>
+      <button type="button" data-frogger-view="source" hidden></button>
+    </div>
+    <div class="frogger-folder">
+      <button type="button" data-frogger-folder="destination">Choose destination</button>
+      <button type="button" data-frogger-view="destination" hidden></button>
+    </div>
+    <button type="button" data-frogger-chain hidden>Chain</button>
+    <input type="file" webkitdirectory multiple hidden data-frogger-picker>
+  </div>
+  <section class="frogger-preview" aria-label="Folder contents">
+    <h2 data-frogger-folder-title>Folder contents</h2>
+    <p role="status" data-frogger-folder-status>Choose a source or destination folder to view its contents.</p>
+    <div class="frogger-carousel" role="group" aria-roledescription="carousel" aria-label="Folder items">
+      <div class="frogger-slide" data-frogger-slide></div>
+      <div class="frogger-carousel-controls">
+        <button type="button" data-frogger-slide-by="-1" aria-label="Previous item" disabled>←</button>
+        <output data-frogger-position aria-live="polite">0 / 0</output>
+        <button type="button" data-frogger-slide-by="1" aria-label="Next item" disabled>→</button>
+      </div>
+    </div>
+  </section>
+</div>
