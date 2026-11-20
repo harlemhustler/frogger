@@ -15,7 +15,7 @@
       <select data-frogger-operation aria-label="Operation">
         <option value="">Choose operation</option>
         <option value="sort">Sort</option>
-        <option value="background_removal">Background remove</option>
+        <option value="background_removal" disabled>Background remove (coming soon)</option>
         <optgroup label="Future operations">
           <option disabled>Add Tags then publish</option>
           <option disabled>Remove Tags then publish</option>
@@ -36,6 +36,13 @@
     </div>
     <button type="button" data-frogger-chain hidden>Chain</button>
     <input type="file" webkitdirectory multiple hidden data-frogger-picker>
+  </div>
+  <div class="frogger-settings frogger-run-controls">
+    <button type="button" data-frogger-connect>Connect to Gorgon</button>
+    <label>Color folders <input data-frogger-colors placeholder="Red, Blue"></label>
+    <button type="button" data-frogger-run>Run Sort</button>
+    <button type="button" data-frogger-download hidden>Download ZIP</button>
+    <small>Sort uploads up to 20 images / 8 MiB. Results download as a ZIP.</small>
   </div>
   <section class="frogger-preview" aria-label="Folder contents">
     <h2 data-frogger-folder-title>Folder contents</h2>
