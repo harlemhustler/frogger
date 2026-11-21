@@ -23,6 +23,14 @@ class SortTests(unittest.TestCase):
                 self.assertEqual(image.size, (4, 4))
         self.assertEqual(result["sorted"], 1)
 
+    def test_multiword_variant_handles_and_longest_match(self):
+        result = run_sort({"operation": "sort", "folders": ["Blue", "Navy Blue", "Olive Green"],
+                           "files": [self.image("shirt_navy-blue.png"), self.image("olive_green-shirt.png")]})
+        with ZipFile(BytesIO(base64.b64decode(result["archive"]))) as archive:
+            self.assertIn("Navy Blue/shirt_navy-blue.png", archive.namelist())
+            self.assertIn("Olive Green/olive_green-shirt.png", archive.namelist())
+        self.assertEqual(result["sorted"], 2)
+
     def test_reject_paths_and_unsupported_operations(self):
         for name in ["../escape.png", "folder/file.png", "a\\b.png"]:
             with self.assertRaises(ValueError):

@@ -38,8 +38,15 @@
     <input type="file" webkitdirectory multiple hidden data-frogger-picker>
   </div>
   <div class="frogger-settings frogger-run-controls">
-    <button type="button" data-frogger-connect>Connect to Gorgon</button>
-    <label>Color folders <input data-frogger-colors placeholder="Red, Blue"></label>
+    <fieldset class="frogger-criteria" data-frogger-criteria hidden>
+      <legend>Sort by color</legend>
+      <div data-frogger-variants></div>
+      <div class="frogger-criteria-actions">
+        <button type="button" data-frogger-add-variant>Add another</button>
+        <button type="button" data-frogger-proceed>Proceed</button>
+      </div>
+      <p data-frogger-criteria-status role="status"></p>
+    </fieldset>
     <button type="button" data-frogger-run>Run Sort</button>
     <button type="button" data-frogger-download hidden>Download ZIP</button>
     <small>Sort uploads up to 20 images / 8 MiB. Results download as a ZIP.</small>

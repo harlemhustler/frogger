@@ -1,7 +1,7 @@
 (() => {
   for (const scene of document.querySelectorAll('[data-scene="frogger"]')) {
     const panels = [...scene.querySelectorAll('.gorgon-frogger')];
-    const newStep = () => ({operation: '', source: null, destination: null, preview: null, slide: 0});
+    const newStep = () => ({operation: '', source: null, destination: null, preview: null, slide: 0, variants: [''], criteriaReady: false});
     const steps = [newStep()];
     let active = 0;
     let message = '';
@@ -17,12 +17,32 @@
       const step = steps[active];
       const folders = {source: sourceFor(active), destination: step.destination};
       for (const panel of panels) {
-        find(panel,'[data-frogger-connect]').disabled = running;
-        find(panel,'[data-frogger-connect]').textContent = connected ? 'Reconnect Gorgon' : 'Connect to Gorgon';
-        find(panel,'[data-frogger-run]').disabled = running || !connected;
+        find(panel,'[data-frogger-criteria]').hidden = step.operation !== 'sort';
+        const variants = find(panel,'[data-frogger-variants]');
+        if (variants.children.length !== step.variants.length) {
+          variants.replaceChildren(...step.variants.map((value,index) => {
+            const label = document.createElement('label');
+            label.textContent = 'Variant ' + (index + 1);
+            const input = document.createElement('input');
+            input.dataset.froggerVariant = index;
+            input.setAttribute('aria-label','Variant ' + (index + 1) + ' handle');
+            input.placeholder = index ? 'Olive Green' : 'Navy Blue';
+            input.maxLength = 80;
+            label.append(input);
+            return label;
+          }));
+        }
+        for (const input of variants.querySelectorAll('input')) {
+          input.value = step.variants[Number(input.dataset.froggerVariant)];
+          input.disabled = running;
+        }
+        find(panel,'[data-frogger-add-variant]').disabled = running || step.variants.length >= 30;
+        find(panel,'[data-frogger-proceed]').disabled = running;
+        find(panel,'[data-frogger-criteria-status]').textContent = step.criteriaReady ? 'Ready: ' + step.variants.map(v=>v.trim()).join(', ') : 'Enter each color handle, then proceed.';
+        find(panel,'[data-frogger-run]').disabled = running || !connected || !step.criteriaReady || step.operation !== 'sort';
         find(panel,'[data-frogger-run]').textContent = running ? 'Sorting...' : 'Run Sort';
         find(panel,'[data-frogger-download]').hidden = !artifact;
-        for (const control of panel.querySelectorAll('[data-frogger-folder], [data-frogger-chain], [data-frogger-step], [data-frogger-operation], [data-frogger-colors]')) {
+        for (const control of panel.querySelectorAll('[data-frogger-folder], [data-frogger-chain], [data-frogger-step], [data-frogger-operation]')) {
           control.disabled = running;
         }
         for (const tab of panel.querySelectorAll('[data-frogger-step]')) {
@@ -87,7 +107,7 @@
         setFolder(pending.index, pending.key, name, [...entries.values()],
           files.filter(file => file.webkitRelativePath.split('/').length === 2));
         if (pending.key === 'destination') {
-          for (const target of panels) find(target,'[data-frogger-colors]').value = [...entries.values()].filter(entry=>entry.directory).map(entry=>entry.name).join(', ');
+          // Sort variants are entered explicitly; folder names never overwrite them.
         }
         pending = null;
       });
@@ -96,18 +116,26 @@
         const button = event.target.closest('button');
         if (!button || button.disabled) return;
         message = '';
-        if (button.hasAttribute('data-frogger-connect')) {
-          try {
-            connection ||= window.GorgonConnections.create('frogger');
-            running = true;
-            message = 'Complete Gorgon sign-in in the connection tab.';
-            const connecting = connection.connect();
-            render();
-            await connecting;
-            connected = true;
-            message = 'Connected to Gorgon.';
-          } catch (error) { message = error.message; connected = false; }
-          finally { running = false; render(); }
+        if (button.hasAttribute('data-frogger-add-variant')) {
+          if (!steps[active].variants.at(-1).trim()) { message = 'Enter a handle before adding another.'; render(); return; }
+          steps[active].variants.push('');
+          steps[active].criteriaReady = false;
+          artifact = null;
+          render();
+          find(panel,'[data-frogger-variants]').lastElementChild.querySelector('input').focus();
+          return;
+        } else if (button.hasAttribute('data-frogger-proceed')) {
+          const names = steps[active].variants.map(value=>value.trim());
+          if (names.some(name=>!name || name.length>80 || /[\\/:*?"<>|\x00-\x1f]/.test(name) || name.startsWith('.') || ['unsorted','no bg'].includes(name.toLowerCase()))) {
+            message = 'Enter a valid folder handle for every variant.';
+          } else if (new Set(names.map(name=>name.toLowerCase())).size !== names.length) {
+            message = 'Each variant handle must be different.';
+          } else {
+            steps[active].variants = names;
+            steps[active].criteriaReady = true;
+            message = connected ? 'Criteria ready. Choose your source and run Sort.' : 'Criteria ready. Use Quick Actions Start to connect.';
+          }
+          render();
           return;
         } else if (button.hasAttribute('data-frogger-download')) {
           const bytes = Uint8Array.from(atob(artifact.archive), char => char.charCodeAt(0));
@@ -126,7 +154,8 @@
             if (!files.length || files.length > 20 || files.reduce((sum,file)=>sum+file.size,0)>8*1024*1024) {
               throw new Error('Choose 1 to 20 source images totaling at most 8 MiB.');
             }
-            const folders = find(panel,'[data-frogger-colors]').value.split(',').map(name=>name.trim()).filter(Boolean);
+            const folders = steps[0].variants.map(name=>name.trim());
+            if (!steps[0].criteriaReady) throw new Error('Confirm your variant handles with Proceed.');
             if (!folders.length) throw new Error('Select destination color folders or enter their names.');
             running = true;
             artifact = null;
@@ -175,7 +204,7 @@
               }
               setFolder(index, key, handle.name, entries, files);
               if (key === 'destination') {
-                for (const target of panels) find(target,'[data-frogger-colors]').value = entries.filter(entry=>entry.directory).map(entry=>entry.name).join(', ');
+                // Keep explicit variant handles unchanged.
               }
               return;
             } catch (error) {
@@ -195,8 +224,10 @@
         render();
       });
 
-      find(panel,'[data-frogger-colors]').addEventListener('input',event=>{
-        for (const target of panels) if (target !== panel) find(target,'[data-frogger-colors]').value = event.target.value;
+      panel.addEventListener('input',event=>{
+        if (!event.target.hasAttribute('data-frogger-variant')) return;
+        steps[active].variants[Number(event.target.dataset.froggerVariant)] = event.target.value;
+        steps[active].criteriaReady = false;
         artifact = null;
         render();
       });
@@ -207,6 +238,25 @@
         render();
       });
     }
+    scene.addEventListener('gorgon-command',async event=>{
+      const action = event.detail.command;
+      if (running) { event.detail.report('Wait for the current Frogger request to finish.'); return; }
+      if (action === 'Stop') {
+        connection?.dispose(); connection = null; connected = false;
+        message = 'Frogger disconnected. Completed downloads are preserved.';
+        event.detail.report(message); render(); return;
+      }
+      running = true;
+      try {
+        if (action === 'Restart') { connection?.dispose(); connection = null; connected = false; }
+        connection ||= window.GorgonConnections.create('frogger');
+        const request = connected ? connection.request('health') : connection.connect();
+        message = 'Checking Frogger backend; complete sign-in if prompted.'; render();
+        await request; connected = true;
+        message = action === 'Diagnose' ? 'Gorgon connection healthy. Frogger supports Sort: 20 images / 8 MiB.' : 'Frogger connected. Configure variants and run Sort.';
+      } catch(error) { connected = false; message = error.message; }
+      finally { running = false; event.detail.report(message); render(); }
+    });
     render();
   }
 })();
